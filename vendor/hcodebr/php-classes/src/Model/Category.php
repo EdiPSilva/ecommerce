@@ -60,6 +60,7 @@
 
 			foreach ($categories as $row) {
 				array_push($html, '<li><a href="/categories/'.$row['idcategory'].'">'.$row['descategory'].'</a></li>');
+				//array_push($html, '<li><a href="/'.strtolower($row['descategory']).'">'.$row['descategory'].'</a></li>');
 			}
 
 			file_put_contents(str_replace('/', DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR."categories-menu.html", implode('',$html));

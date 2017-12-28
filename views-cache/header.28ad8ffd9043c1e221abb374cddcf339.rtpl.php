@@ -79,7 +79,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="logo">
-                        <h1><a href="#"><img src="/res/site/img/logo.png"></a></h1>
+                        <h1><a href="/"><img src="/res/site/img/logo.png"></a></h1>
                     </div>
                 </div>
                 
@@ -105,9 +105,7 @@
                 </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="#">Home</a></li>
-                        <li class="active"><a href="#">Produtos</a></li>
-                        <li><a href="#">Carrinho</a></li>
+                        <?php require $this->checkTemplate("categories-menu");?>
                     </ul>
                 </div>  
             </div>
