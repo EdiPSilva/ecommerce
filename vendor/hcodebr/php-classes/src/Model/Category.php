@@ -5,18 +5,17 @@
 	//Importando a class
 	use \Hcode\DB\Sql; 
 	use \Hcode\Model; 
-	use \Hcode\Model\Product; 
 
 	class Category extends Model
 	{
-		public static function listAll()
+		public static function listAll()//Retorna todas as categorias
 		{
 			$sql = new Sql();
 
-			return $sql->select("SELECT * FROM tb_categories ORDER BY descategory");
+			return $sql->select("SELECT * FROM tb_categories ORDER BY idcategory");
 		}
 
-		public function save()
+		public function save()//Salva as informações no banco
 		{
 			$sql = new Sql();
 
@@ -30,7 +29,7 @@
 			Category::updateFile();
 		}
 
-		public function get($idcategory)
+		public function get($idcategory)//Retorna somente uma categoria
 		{
 			$sql = new Sql();
 
@@ -41,7 +40,7 @@
 			$this->setData($results[0]);
 		}
 
-		public function delete()
+		public function delete()//Remove a categoria do banco
 		{
 			$sql = new Sql();
 
@@ -52,7 +51,7 @@
 			Category::updateFile();
 		}
 
-		public static function updateFile()
+		public static function updateFile()//Cria o arquivo com o html list das categorias
 		{
 			$categories = Category::listAll();
 			
@@ -66,35 +65,25 @@
 			file_put_contents(str_replace('/', DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR."categories-menu.html", implode('',$html));
 		}
 
-		public function getProducts($related = true)
+		public function getProducts($related = true)//Retorna os produtos associados e não associados das categorias
 		{
 			$sql = new Sql();
 
+			$termo = "";
+
 			if($related === true)
 			{
-				return $sql->select(
-					"SELECT * FROM tb_products WHERE idproduct IN(
-						SELECT a.idproduct
-						FROM tb_products a
-						INNER JOIN tb_productscategories b ON (a.idproduct = b.idproduct)
-						WHERE b.idcategory = :idcategory
-					);", [':idcategory' => $this->getidcategory()]
-				);
+				$termo = " IN";
 			}
 			else
 			{
-				return $sql->select(
-					"SELECT * FROM tb_products WHERE idproduct NOT IN(
-						SELECT a.idproduct
-						FROM tb_products a
-						INNER JOIN tb_productscategories b ON (a.idproduct = b.idproduct)
-						WHERE b.idcategory = :idcategory
-					);", [':idcategory' => $this->getidcategory()]
-				);
+				$termo = " NOT IN";
 			}
+
+			return $sql->select("SELECT * FROM tb_products WHERE idproduct ".$termo."(SELECT a.idproduct FROM tb_products a INNER JOIN tb_productscategories b ON (a.idproduct = b.idproduct) WHERE b.idcategory = :idcategory);", [':idcategory' => $this->getidcategory()]);
 		}
 
-		public function addProduct(Product $product)
+		public function addProduct(Product $product)//Associa o produto a categoria
 		{
 			$sql = new Sql();
 
@@ -104,7 +93,7 @@
 			]);
 		}
 
-		public function removeProduct(Product $product)
+		public function removeProduct(Product $product)//Remove associação do produto a categoria
 		{
 			$sql = new Sql();
 

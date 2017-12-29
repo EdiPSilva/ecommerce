@@ -8,7 +8,5 @@
 	    {
 	    	parent::__construct($opts, $tpl_dir);//Chama o método construtor da classe pai
 	    }
-		
 	}
-	
 ?>

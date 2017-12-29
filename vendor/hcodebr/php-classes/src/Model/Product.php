@@ -9,13 +9,16 @@
 
 	class Product extends Model
 	{
-		public static function listAll()
+		public static function listAll()//Retorna todos os produtos
 		{
 			$sql = new Sql();
 
 			return $sql->select("SELECT * FROM tb_products ORDER BY desproduct");
 		}
 
+		/*
+		O método abaixo recebe uma lista de produtos, a variável $row serve para abrir o foreach e também recebe a nova estrutura do objeto de produtos, após a execução do loop o métogo getValues é acionado na linha 89 e com isso o método checkPhoto também é chamado, e com isso independente da estrutura da tabela é inserido mais uma posição no objeto que detém a foto do mesmo.
+		*/
 		public static function checkList($list)
 		{
 			foreach ($list as &$row)
@@ -28,7 +31,7 @@
 			return $list;
 		}
 
-		public function save()
+		public function save()//Salva as informações no banco
 		{
 			$sql = new Sql();
 
@@ -46,7 +49,7 @@
 			$this->setData($results[0]);
 		}
 
-		public function get($idproduct)
+		public function get($idproduct)//Retorna um produto
 		{
 			$sql = new Sql();
 
@@ -57,7 +60,7 @@
 			$this->setData($results[0]);
 		}
 
-		public function delete()
+		public function delete()//Remove um produto
 		{
 			$sql = new Sql();
 
@@ -67,20 +70,20 @@
 
 		}
 
-		public function checkPhoto()
+		public function checkPhoto()//Verifica se o produto detém foto
 		{
 			$file = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."res".DIRECTORY_SEPARATOR."site".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR."products".DIRECTORY_SEPARATOR.$this->getidproduct().".jpg";
 
 			if(file_exists($file))
 			{
-				$url = "/res/site/img/products/".$this->getidproduct().".jpg";
+				$url = "/res/site/img/products/".$this->getidproduct().".jpg";//Retorna a imagem do produto
 			}
 			else
 			{
-				$url = "/res/site/img/product.jpg";
+				$url = "/res/site/img/product.jpg";//Retorna uma imagem padrão
 			}
 
-			return $this->setdesphoto($url);
+			return $this->setdesphoto($url);//Insere na memória do objeto a foto do produto
 		}
 
 		public function getValues()//Reescrita método class Model
@@ -92,7 +95,7 @@
 			return $values;	
 		}
 
-		public function setPhoto($file)
+		public function setPhoto($file)//Faz o upload do arquivo
 		{
 			$extension = explode('.', $file['name']);
 			$extension = end($extension);//recupera a ultima posição do array
@@ -101,23 +104,23 @@
 			{
 				case "jpg":
 				case "jpeg":
-					$image = imagecreatefromjpeg($file["tmp_name"]);
+					$image = imagecreatefromjpeg($file["tmp_name"]);//Cria uma imagem temporária com o formato jpeg
 					break;
 
 				case "gif":
-					$image = imagecreatefromgif($file["tmp_name"]);
+					$image = imagecreatefromgif($file["tmp_name"]);//Cria uma imagem temporária com o formato gif
 					break;
 
 				case "png":
-					$image = imagecreatefrompng($file["tmp_name"]);
+					$image = imagecreatefrompng($file["tmp_name"]);//Cria uma imagem temporária com o formato png
 					break;
 			}
 
-			$dist = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."res".DIRECTORY_SEPARATOR."site".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR."products".DIRECTORY_SEPARATOR.$this->getidproduct().".jpg";
+			$dist = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."res".DIRECTORY_SEPARATOR."site".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR."products".DIRECTORY_SEPARATOR.$this->getidproduct().".jpg";//Diretório de imagens
 
-			imagejpeg($image, $dist);
+			imagejpeg($image, $dist);//Move a imagem para o diretorio equivalente e troca a extensão para jpg
 
-			imagedestroy($image);
+			imagedestroy($image);//Destroi o arquivo temporário
 
 			$this->checkPhoto();
 		}
