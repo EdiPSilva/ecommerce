@@ -9,7 +9,9 @@
     border-radius: 0px;
     border-left: 3px solid #ccc;
 }
-
 .box-header a{
 	margin-top: 25px;
-}    
+}  
+.box-body img{
+	max-height: 350px;
+}

@@ -1,7 +1,7 @@
 <?php if(!class_exists('Rain\Tpl')){exit;}?><div class="content-wrapper">
     <section class="content-header">
-        <div class="col-md-6"><h1><?php echo htmlspecialchars( $category_products_in_category, ENT_COMPAT, 'UTF-8', FALSE ); ?></h1></div>
-        <div class="col-md-6">
+        <div class="col-md-4"><h1><?php echo htmlspecialchars( $category_products_in_category, ENT_COMPAT, 'UTF-8', FALSE ); ?></h1></div>
+        <div class="col-md-8">
             <ol class="breadcrumb">
                 <li><a href="<?php echo htmlspecialchars( $home_menu_link, ENT_COMPAT, 'UTF-8', FALSE ); ?>"><i class="fa fa-dashboard"></i>&nbsp;<?php echo htmlspecialchars( $home_menu_text, ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
                 <li><a href="<?php echo htmlspecialchars( $category_menu_link, ENT_COMPAT, 'UTF-8', FALSE ); ?>"><i class="fa fa-tags"></i>&nbsp;<?php echo htmlspecialchars( $category_menu_text, ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>

@@ -1,7 +1,10 @@
 <?php 
 
 /*Text*/
-
+$product_language["product_title"] = "Produtos";
+$product_language["product_title_list"] = "Lista de Produtos";
+$product_language["product_title_register"] = "Cadastrar Produto";
+$product_language["product_title_edit"] = "Editar Produto";
 /*Text*/
 
 /*Button*/
