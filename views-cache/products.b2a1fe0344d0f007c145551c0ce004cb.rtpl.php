@@ -4,7 +4,7 @@
         <div class="col-md-8">
             <ol class="breadcrumb">
                 <li><a href="<?php echo htmlspecialchars( $home_menu_link, ENT_COMPAT, 'UTF-8', FALSE ); ?>"><i class="fa fa-dashboard"></i>&nbsp;<?php echo htmlspecialchars( $home_menu_text, ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
-                <li><a href="<?php echo htmlspecialchars( $product_menu_link, ENT_COMPAT, 'UTF-8', FALSE ); ?>"><i class="fa fa-cubes"></i>&nbsp;<?php echo htmlspecialchars( $product_title, ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                <li><a href="<?php echo htmlspecialchars( $product_menu_link, ENT_COMPAT, 'UTF-8', FALSE ); ?>"><i class="fa fa-cubes"></i>&nbsp;<?php echo htmlspecialchars( $product_title_list, ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
             </ol>
         </div>
     </section>
