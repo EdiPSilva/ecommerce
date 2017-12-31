@@ -21,31 +21,31 @@
         <form role="form" action="/admin/products/<?php echo htmlspecialchars( $product["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post" enctype="multipart/form-data">
           <div class="box-body">
             <div class="form-group">
-              <label for="desproduct">Nome da produto</label>
-              <input type="text" class="form-control" id="desproduct" name="desproduct" placeholder="Digite o nome do produto" value="<?php echo htmlspecialchars( $product["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <label for="desproduct"><?php echo htmlspecialchars( $product_label_name, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>
+              <input type="text" class="form-control" id="desproduct" name="desproduct" placeholder="<?php echo htmlspecialchars( $product_input_name, ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $product["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
             <div class="form-group">
-              <label for="vlprice">Preço</label>
-              <input type="number" class="form-control" id="vlprice" name="vlprice" step="0.01" placeholder="0.00" value="<?php echo htmlspecialchars( $product["vlprice"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <label for="vlprice"><?php echo htmlspecialchars( $product_label_price, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>
+              <input type="number" class="form-control" id="vlprice" name="vlprice" step="0.01" placeholder="<?php echo htmlspecialchars( $product_input_price, ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $product["vlprice"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
             <div class="form-group">
-              <label for="vlwidth">Largura</label>
-              <input type="number" class="form-control" id="vlwidth" name="vlwidth" step="0.01" placeholder="0.00" value="<?php echo htmlspecialchars( $product["vlwidth"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <label for="vlwidth"><?php echo htmlspecialchars( $product_label_width, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>
+              <input type="number" class="form-control" id="vlwidth" name="vlwidth" step="0.01" placeholder="<?php echo htmlspecialchars( $product_input_width, ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $product["vlwidth"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
             <div class="form-group">
-              <label for="vlheight">Altura</label>
-              <input type="number" class="form-control" id="vlheight" name="vlheight" step="0.01" placeholder="0.00" value="<?php echo htmlspecialchars( $product["vlheight"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <label for="vlheight"><?php echo htmlspecialchars( $product_label_height, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>
+              <input type="number" class="form-control" id="vlheight" name="vlheight" step="0.01" placeholder="<?php echo htmlspecialchars( $product_input_height, ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $product["vlheight"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
             <div class="form-group">
-              <label for="vllength">Comprimento</label>
-              <input type="number" class="form-control" id="vllength" name="vllength" step="0.01" placeholder="0.00" value="<?php echo htmlspecialchars( $product["vllength"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <label for="vllength"><?php echo htmlspecialchars( $product_label_length, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>
+              <input type="number" class="form-control" id="vllength" name="vllength" step="0.01" placeholder="<?php echo htmlspecialchars( $product_input_length, ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $product["vllength"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
             <div class="form-group">
-              <label for="vlweight">Peso</label>
-              <input type="number" class="form-control" id="vlweight" name="vlweight" step="0.01" placeholder="0.00" value="<?php echo htmlspecialchars( $product["vlweight"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <label for="vlweight"><?php echo htmlspecialchars( $product_label_weight, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>
+              <input type="number" class="form-control" id="vlweight" name="vlweight" step="0.01" placeholder="<?php echo htmlspecialchars( $product_input_weight, ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $product["vlweight"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
             <div class="form-group">
-              <label for="file">Foto</label>
+              <label for="file"><?php echo htmlspecialchars( $product_label_photo, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>
               <input type="file" class="form-control" id="file" name="file" value="<?php echo htmlspecialchars( $product["vlweight"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
               <div class="box box-widget">
                 <div class="box-body">
@@ -57,7 +57,7 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="submit" class="btn btn-primary"><?php echo htmlspecialchars( $default_update_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></button>
           </div>
         </form>
       </div>

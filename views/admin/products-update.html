@@ -21,31 +21,31 @@
         <form role="form" action="/admin/products/{$product.idproduct}" method="post" enctype="multipart/form-data">
           <div class="box-body">
             <div class="form-group">
-              <label for="desproduct">Nome da produto</label>
-              <input type="text" class="form-control" id="desproduct" name="desproduct" placeholder="Digite o nome do produto" value="{$product.desproduct}">
+              <label for="desproduct">{$product_label_name}</label>
+              <input type="text" class="form-control" id="desproduct" name="desproduct" placeholder="{$product_input_name}" value="{$product.desproduct}">
             </div>
             <div class="form-group">
-              <label for="vlprice">Preço</label>
-              <input type="number" class="form-control" id="vlprice" name="vlprice" step="0.01" placeholder="0.00" value="{$product.vlprice}">
+              <label for="vlprice">{$product_label_price}</label>
+              <input type="number" class="form-control" id="vlprice" name="vlprice" step="0.01" placeholder="{$product_input_price}" value="{$product.vlprice}">
             </div>
             <div class="form-group">
-              <label for="vlwidth">Largura</label>
-              <input type="number" class="form-control" id="vlwidth" name="vlwidth" step="0.01" placeholder="0.00" value="{$product.vlwidth}">
+              <label for="vlwidth">{$product_label_width}</label>
+              <input type="number" class="form-control" id="vlwidth" name="vlwidth" step="0.01" placeholder="{$product_input_width}" value="{$product.vlwidth}">
             </div>
             <div class="form-group">
-              <label for="vlheight">Altura</label>
-              <input type="number" class="form-control" id="vlheight" name="vlheight" step="0.01" placeholder="0.00" value="{$product.vlheight}">
+              <label for="vlheight">{$product_label_height}</label>
+              <input type="number" class="form-control" id="vlheight" name="vlheight" step="0.01" placeholder="{$product_input_height}" value="{$product.vlheight}">
             </div>
             <div class="form-group">
-              <label for="vllength">Comprimento</label>
-              <input type="number" class="form-control" id="vllength" name="vllength" step="0.01" placeholder="0.00" value="{$product.vllength}">
+              <label for="vllength">{$product_label_length}</label>
+              <input type="number" class="form-control" id="vllength" name="vllength" step="0.01" placeholder="{$product_input_length}" value="{$product.vllength}">
             </div>
             <div class="form-group">
-              <label for="vlweight">Peso</label>
-              <input type="number" class="form-control" id="vlweight" name="vlweight" step="0.01" placeholder="0.00" value="{$product.vlweight}">
+              <label for="vlweight">{$product_label_weight}</label>
+              <input type="number" class="form-control" id="vlweight" name="vlweight" step="0.01" placeholder="{$product_input_weight}" value="{$product.vlweight}">
             </div>
             <div class="form-group">
-              <label for="file">Foto</label>
+              <label for="file">{$product_label_photo}</label>
               <input type="file" class="form-control" id="file" name="file" value="{$product.vlweight}">
               <div class="box box-widget">
                 <div class="box-body">
@@ -57,7 +57,7 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="submit" class="btn btn-primary">{$default_update_button}</button>
           </div>
         </form>
       </div>

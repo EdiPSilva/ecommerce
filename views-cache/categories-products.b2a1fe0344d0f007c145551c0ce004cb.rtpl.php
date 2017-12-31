@@ -3,7 +3,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Produtos da Categoria <?php echo htmlspecialchars( $category["descategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>
+    <?php echo htmlspecialchars( $category_products_in_category, ENT_COMPAT, 'UTF-8', FALSE ); ?><?php echo htmlspecialchars( $category["descategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>
 
   </h1>
   <ol class="breadcrumb">
@@ -21,7 +21,7 @@
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                <h3 class="box-title">Todos os Produtos</h3>
+                <h3 class="box-title"><?php echo htmlspecialchars( $category_all_products, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -30,7 +30,7 @@
                         <thead>
                             <tr>
                             <th style="width: 10px">#</th>
-                            <th>Nome do Produto</th>
+                            <th><?php echo htmlspecialchars( $category_column_name, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
                             <th style="width: 240px">&nbsp;</th>
                             </tr>
                         </thead>
@@ -41,7 +41,7 @@
                             <td><?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td>
-                                <a href="/admin/categories/<?php echo htmlspecialchars( $category["idcategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/add" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-right"></i> Adicionar</a>
+                                <a href="/admin/categories/<?php echo htmlspecialchars( $category["idcategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/add" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-right"></i>&nbsp;<?php echo htmlspecialchars( $default_add_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
                             </td>
                             </tr>
                             <?php } ?>
@@ -54,7 +54,7 @@
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
-                <h3 class="box-title">Produtos na Categoria <?php echo htmlspecialchars( $category["descategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
+                <h3 class="box-title"><?php echo htmlspecialchars( $category_products_in_category, ENT_COMPAT, 'UTF-8', FALSE ); ?><?php echo htmlspecialchars( $category["descategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -63,7 +63,7 @@
                         <thead>
                             <tr>
                             <th style="width: 10px">#</th>
-                            <th>Nome do Produto</th>
+                            <th><?php echo htmlspecialchars( $category_column_name, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
                             <th style="width: 240px">&nbsp;</th>
                             </tr>
                         </thead>
@@ -74,7 +74,7 @@
                             <td><?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td>
-                                <a href="/admin/categories/<?php echo htmlspecialchars( $category["idcategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i> Remover</a>
+                                <a href="/admin/categories/<?php echo htmlspecialchars( $category["idcategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i>&nbsp;<?php echo htmlspecialchars( $default_remove_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
                             </td>
                             </tr>
                             <?php } ?>

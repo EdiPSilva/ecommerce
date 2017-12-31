@@ -11,6 +11,7 @@
 		private $options = [];
 		private $defaults = [
 			"header"	=> true,
+			"sidebar"	=> true,
 			"footer"	=> true,
 			"data"		=> []
 		];
@@ -33,6 +34,7 @@
 
 	        if($this->options['header'] === true) $this->tpl->draw("header");//Caso o header seja true o mesmo será desenhado
 
+	        if($this->options['sidebar'] === true) $this->tpl->draw("main-sidebar");
 	    }
 
 	    private function setData($data = array())//Insere as informações na instancia do objeto

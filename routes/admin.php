@@ -6,15 +6,17 @@ use \Hcode\Model\User;
 $app->get('/admin', function() {//Abre a tela principal do painel administrativo
 
 	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
-    
-	$page = new PageAdmin();
+
+	$data["data"] = loadLanguage('admin');
+	
+	$page = new PageAdmin($data);
 
 	$page->setTpl("index");//Renderiza a tela
 });
 
 $app->get('/admin/login', function() {//Abre a tela de login do painel administrativo 
     
-	$page = new PageAdmin(array("header" => false, "footer" => false));//Cria uma página sem o header e o footer
+	$page = new PageAdmin(array("header" => false, "footer" => false, "sidebar" => false));//Cria uma página sem o header e o footer
 
 	$page->setTpl("login");//Renderiza a tela
 });
@@ -38,7 +40,7 @@ $app->get('/admin/logout', function(){//Sai do painel administrativo
 //---Recuperar Senha---//
 $app->get('/admin/forgot', function(){//Abra a tela para recuperar a senha
 
-	$page = new PageAdmin(array("header" => false, "footer" => false));//Cria uma página sem o header e o footer
+	$page = new PageAdmin(array("header" => false, "footer" => false, "sidebar" => false));//Cria uma página sem o header e o footer
 
 	$page->setTpl("forgot");//Renderiza a tela
 });
@@ -56,7 +58,7 @@ $app->post('/admin/forgot', function(){//Envia um email ao usuário caso o mesmo
 
 $app->get('/admin/forgot/sent', function(){//Abre a tela para mostrar que o email foi enviado
 
-	$page = new PageAdmin(array("header" => false, "footer" => false));//Cria uma página sem o header e o footer
+	$page = new PageAdmin(array("header" => false, "footer" => false, "sidebar" => false));//Cria uma página sem o header e o footer
 
 	$page->setTpl("forgot-sent");//Renderiza a tela
 });
@@ -65,7 +67,7 @@ $app->get('/admin/forgot/reset', function(){//Abre a tela para inserir a nova se
 
 	$user = User::validForgotDecrypt($_GET["code"]);
 	
-	$page = new PageAdmin(array("header" => false, "footer" => false));//Cria uma página sem o header e o footer
+	$page = new PageAdmin(array("header" => false, "footer" => false, "sidebar" => false));//Cria uma página sem o header e o footer
 
 	$page->setTpl("forgot-reset", array(
 		"name" => $user['desperson'],
@@ -87,7 +89,7 @@ $app->post('/admin/forgot/reset', function(){//Cadastra a nova senha
 
 	$user->setPassword($password);//Salva a nova senha
 
-	$page = new PageAdmin(array("header" => false, "footer" => false));//Cria uma página sem o header e o footer
+	$page = new PageAdmin(array("header" => false, "footer" => false, "sidebar" => false));//Cria uma página sem o header e o footer
 
 	$page->setTpl("forgot-reset-success");//Renderiza a tela
 });

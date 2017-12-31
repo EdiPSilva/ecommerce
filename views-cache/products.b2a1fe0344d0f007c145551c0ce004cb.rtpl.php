@@ -19,21 +19,21 @@
   		<div class="box box-primary">
             
             <div class="box-header">
-              <a href="/admin/products/create" class="btn btn-success">Cadastrar Produto</a>
+              <a href="/admin/products/create" class="btn btn-success"><?php echo htmlspecialchars( $product_button_create, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
             </div>
 
-            <div class="box-body no-padding">
+            <div class="box-body no-padding table-responsive">
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Nome da Produto</th>
-                    <th>Preço</th>
-                    <th>Largura</th>
-                    <th>Altura</th>
-                    <th>Comprimento</th>
-                    <th>Peso</th>
-                    <th style="width: 140px">&nbsp;</th>
+                    <th class="col-sm-1">#</th>
+                    <th class="col-sm-4"><?php echo htmlspecialchars( $product_column_name, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                    <th class="col-sm-1"><?php echo htmlspecialchars( $product_column_price, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                    <th class="col-sm-1"><?php echo htmlspecialchars( $product_column_width, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                    <th class="col-sm-1"><?php echo htmlspecialchars( $product_column_height, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                    <th class="col-sm-1"><?php echo htmlspecialchars( $product_column_length, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                    <th class="col-sm-1"><?php echo htmlspecialchars( $product_column_weight, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                    <th class="col-sm-2"><?php echo htmlspecialchars( $product_column_ations, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,8 +48,8 @@
                     <td><?php echo htmlspecialchars( $value1["vllength"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["vlweight"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td>
-                      <a href="/admin/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                      <a href="/admin/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i><?php echo htmlspecialchars( $default_update_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+                      <a href="/admin/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i><?php echo htmlspecialchars( $default_delete_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
                     </td>
                   </tr>
                   <?php } ?>

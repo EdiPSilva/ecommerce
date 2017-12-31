@@ -26,13 +26,13 @@
         <form role="form" action="/admin/categories/create" method="post">
           <div class="box-body">
             <div class="form-group">
-              <label for="descategory">Nome da categoria</label>
-              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="Digite o nome da categoria">
+              <label for="descategory"><?php echo htmlspecialchars( $category_label, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>
+              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="<?php echo htmlspecialchars( $category_input, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <button type="submit" class="btn btn-success"><?php echo htmlspecialchars( $default_register_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></button>
           </div>
         </form>
       </div>

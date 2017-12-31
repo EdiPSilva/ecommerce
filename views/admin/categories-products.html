@@ -3,7 +3,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Produtos da Categoria {$category.descategory}
+    {$category_products_in_category}{$category.descategory}
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -20,7 +20,7 @@
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                <h3 class="box-title">Todos os Produtos</h3>
+                <h3 class="box-title">{$category_all_products}</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -29,7 +29,7 @@
                         <thead>
                             <tr>
                             <th style="width: 10px">#</th>
-                            <th>Nome do Produto</th>
+                            <th>{$category_column_name}</th>
                             <th style="width: 240px">&nbsp;</th>
                             </tr>
                         </thead>
@@ -39,7 +39,7 @@
                             <td>{$value.idproduct}</td>
                             <td>{$value.desproduct}</td>
                             <td>
-                                <a href="/admin/categories/{$category.idcategory}/products/{$value.idproduct}/add" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-right"></i> Adicionar</a>
+                                <a href="/admin/categories/{$category.idcategory}/products/{$value.idproduct}/add" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-right"></i>&nbsp;{$default_add_button}</a>
                             </td>
                             </tr>
                             {/loop}
@@ -51,7 +51,7 @@
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
-                <h3 class="box-title">Produtos na Categoria {$category.descategory}</h3>
+                <h3 class="box-title">{$category_products_in_category}{$category.descategory}</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -60,7 +60,7 @@
                         <thead>
                             <tr>
                             <th style="width: 10px">#</th>
-                            <th>Nome do Produto</th>
+                            <th>{$category_column_name}</th>
                             <th style="width: 240px">&nbsp;</th>
                             </tr>
                         </thead>
@@ -70,7 +70,7 @@
                             <td>{$value.idproduct}</td>
                             <td>{$value.desproduct}</td>
                             <td>
-                                <a href="/admin/categories/{$category.idcategory}/products/{$value.idproduct}/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i> Remover</a>
+                                <a href="/admin/categories/{$category.idcategory}/products/{$value.idproduct}/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i>&nbsp;{$default_remove_button}</a>
                             </td>
                             </tr>
                             {/loop}

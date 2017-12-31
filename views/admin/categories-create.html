@@ -26,13 +26,13 @@
         <form role="form" action="/admin/categories/create" method="post">
           <div class="box-body">
             <div class="form-group">
-              <label for="descategory">Nome da categoria</label>
-              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="Digite o nome da categoria">
+              <label for="descategory">{$category_label_name}</label>
+              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="{$category_input_name}">
             </div>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <button type="submit" class="btn btn-success">{$default_register_button}</button>
           </div>
         </form>
       </div>

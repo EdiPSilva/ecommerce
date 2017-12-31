@@ -10,18 +10,28 @@ $app->get("/admin/products",function(){//Abre a tela para listar todos os produt
 	
 	$products = Product::listAll();//Lista todos os produtos
 	
-	$page = new PageAdmin();
+	$data['data'] = loadLanguage('admin-products');//Carrega as languages
 
-	$page->setTpl("products", array('products' => $products));//Renderiza a tela
+	if(isset($data) && !empty($data))
+	{
+		$page = new PageAdmin($data);
+
+		$page->setTpl("products", array('products' => $products));//Renderiza a tela
+	}
 });
 
 $app->get("/admin/products/create", function(){//Abre a tela para criar um produto
 
 	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
 
-	$page = new PageAdmin();
+	$data['data'] = loadLanguage('admin-products');
 
-	$page->setTpl("products-create");//Renderiza a tela
+	if(isset($data) && !empty($data))
+	{
+		$page = new PageAdmin($data);
+
+		$page->setTpl("products-create");//Renderiza a tela
+	}
 });
 
 $app->post("/admin/products/create", function(){//Cria um produto
@@ -46,9 +56,14 @@ $app->get("/admin/products/:idproduct", function($idproduct){//Abre a tela para 
 
 	$product->get((int) $idproduct);//Verifica se é um produto válido
 
-	$page = new PageAdmin();
+	$data['data'] = loadLanguage('admin-products');
 
-	$page->setTpl("products-update", array('product' => $product->getValues()));//Renderiza a tela
+	if(isset($data) && !empty($data))
+	{
+		$page = new PageAdmin($data);
+
+		$page->setTpl("products-update", array('product' => $product->getValues()));//Renderiza a tela
+	}
 });
 
 $app->post("/admin/products/:idproduct", function($idproduct){//Salva as informações da atualização do produto 

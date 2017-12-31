@@ -1,11 +1,9 @@
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      Anything you want
-    </div>
+    <!-- <div class="pull-right hidden-xs">Anything you want</div> -->
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>{$copyright} &copy; <span></span> - <a href="#">Company</a>.</strong> {$all_rights_reserved}.
   </footer>
 
   <!-- Control Sidebar -->
@@ -100,5 +98,26 @@
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
+
+<script type="text/javascript">
+
+    $(document).ready(function()
+    {
+        data = returnCurrentData();
+        $("footer span").text(data);
+    });
+
+    function returnCurrentData()//Retorna a data atual
+    {
+        objData = new Date();
+        day = objData.getDate();
+        month = objData.getMonth()+1;
+        year = objData.getFullYear();
+
+        return day+'/'+month+'/'+year;
+    }
+
+</script>
+
 </body>
 </html>

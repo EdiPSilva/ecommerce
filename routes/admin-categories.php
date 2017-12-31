@@ -11,18 +11,29 @@ $app->get("/admin/categories", function(){//Abre a tela para listar todas as cat
 
 	$categories = Category::listAll();//Traz todas as categorias
 
-	$page = new PageAdmin();
+	$data['data'] = loadLanguage("admin-category");
 
-	$page->setTpl("categories", array('categories' => $categories) );//Renderiza a tela
+	if(isset($data['data']) && !empty($data['data']))
+	{
+		$page = new PageAdmin($data);
+
+		$page->setTpl("categories", array('categories' => $categories) );//Renderiza a tela
+	}
+
 });
 
 $app->get("/admin/categories/create", function(){//Chama a tela de cadastro de categorias
 
 	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
 
-	$page = new PageAdmin();
+	$data['data'] = loadLanguage("admin-category");
 
-	$page->setTpl("categories-create");//Renderiza a tela
+	if(isset($data['data']) && !empty($data['data']));
+	{
+		$page = new PageAdmin($data);
+	
+		$page->setTpl("categories-create");//Renderiza a tela
+	}
 });
 
 $app->post("/admin/categories/create", function(){//Cria uma categoria
@@ -61,9 +72,14 @@ $app->get('/admin/categories/:idcategory', function($idcategory){//Chama a tela 
 
 	$category->get((int) $idcategory);//Verifica se é uma categoria válida
 
-	$page = new PageAdmin();
+	$data['data'] = loadLanguage("admin-category");
 
-	$page->setTpl("categories-update", array('category' => $category->getValues()));//Renderiza a tela
+	if(isset($data['data']) && !empty($data['data']))
+	{
+		$page = new PageAdmin($data);
+
+		$page->setTpl("categories-update", array('category' => $category->getValues()));//Renderiza a tela
+	}
 });
 
 $app->post('/admin/categories/:idcategory', function($idcategory){//Salva a atualização da categoria
@@ -91,13 +107,18 @@ $app->get("/admin/categories/:idcategory/products", function($idcategory){//Abre
 
 	$category->get((int) $idcategory);//Verifica se é uma categoria válida
 
-	$page = new PageAdmin();
+	$data['data'] = loadLanguage("admin-category");
 
-	$page->setTpl("categories-products", array(
+	if(isset($data['data']) && !empty($data['data']))
+	{
+		$page = new PageAdmin($data);
+
+		$page->setTpl("categories-products", array(
 			'category' => $category->getValues(),//Envia as informações da categoria
 			'productsRelated' => $category->getProducts(),//Envia as informações dos produtos relacionados
 			'productsNotRelated' => $category->getProducts(false)//Envia as informações dos produtos não relacionados
 		));//Renderiza a tela
+	}
 });
 
 $app->get("/admin/categories/:idcategory/products/:idproduct/add", function($idcategory, $idproduct){//Associa o produto a categoria
@@ -135,5 +156,4 @@ $app->get("/admin/categories/:idcategory/products/:idproduct/remove", function($
 	header("Location: /admin/categories/".$idcategory."/products");
 	exit;
 });
-
 ?>

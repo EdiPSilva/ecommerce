@@ -2,9 +2,16 @@
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
-  <h1>
-    Lista de Usuários
-  </h1>
+  <div class="col-md-4">
+    <h1>{$title_update}</h1>
+  </div>
+  <div class="col-md-8">
+    <ol class="breadcrumb">
+      <li><a href="{$home_menu_link}"><i class="fa fa-dashboard"></i>&nbsp;{$home_menu_text}</a></li>
+      <li><a href="{$user_menu_link}"><i class="fa fa-users"></i>&nbsp;{$user_menu_text}</a></li>
+      <li class="active"><a href="/admin/users/:iduser"><i class="fa fa-edit"></i>&nbsp;{$title_update}</a></li>
+    </ol>
+  </div>
 </section>
 
 <!-- Main content -->
@@ -13,40 +20,50 @@
   <div class="row">
   	<div class="col-md-12">
   		<div class="box box-primary">
-        <div class="box-header with-border">
+        <!-- <div class="box-header with-border">
           <h3 class="box-title">Editar Usuário</h3>
-        </div>
+        </div> -->
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" action="/admin/users/{$user.iduser}" method="post">
-          <div class="box-body">
-            <div class="form-group">
-              <label for="desperson">Nome</label>
-              <input type="text" class="form-control" id="desperson" name="desperson" placeholder="Digite o nome" value="{$user.desperson}">
+        <div class="box-body">
+          <form role="form" action="/admin/users/{$user.iduser}" method="post">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="desperson">{$label_name}</label>
+                <input type="text" class="form-control" id="desperson" name="desperson" placeholder="{$input_name}" value="{$user.desperson}">
+              </div>
             </div>
-            <div class="form-group">
-              <label for="deslogin">Login</label>
-              <input type="text" class="form-control" id="deslogin" name="deslogin" placeholder="Digite o login"  value="{$user.deslogin}">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="deslogin">{$label_login}</label>
+                <input type="text" class="form-control" id="deslogin" name="deslogin" placeholder="{$input_login}" value="{$user.deslogin}">
+              </div>
             </div>
-            <div class="form-group">
-              <label for="nrphone">Telefone</label>
-              <input type="tel" class="form-control" id="nrphone" name="nrphone" placeholder="Digite o telefone"  value="{$user.nrphone}">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="nrphone">{$label_phone}</label>
+                <input type="tel" class="form-control" id="nrphone" name="nrphone" placeholder="{$input_phone}" value="{$user.nrphone}">
+              </div>
             </div>
-            <div class="form-group">
-              <label for="desemail">E-mail</label>
-              <input type="email" class="form-control" id="desemail" name="desemail" placeholder="Digite o e-mail" value="{$user.desemail}">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="desemail">{$label_email}</label>
+                <input type="email" class="form-control" id="desemail" name="desemail" placeholder="{$input_email}" value="{$user.desemail}">
+              </div>
             </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="inadmin" value="1" {if="$user.inadmin == 1"}checked{/if}> Acesso de Administrador
-              </label>
+            <div class="col-md-3">
+              <div class="form-group">
+                <input type="checkbox" name="inadmin" value="1" {if="$user.inadmin == 1"}checked{/if}>
+                &nbsp;<label>{$label_admin}</label>
+              </div>
             </div>
-          </div>
           <!-- /.box-body -->
-          <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Salvar</button>
-          </div>
-        </form>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary pull-right">{$user_menu_button_finish}</button>
+            </div>
+          </form>
+        </div>
+        <!-- <div class="box-footer"></div> -->
       </div>
   	</div>
   </div>

@@ -9,18 +9,28 @@ $app->get('/admin/users', function(){//Abre a tela para listar todos os usuário
 
 	$users = User::listAll();//Lista todos os usuários
 
-	$page = new PageAdmin();
+	$data["data"] = loadLanguage('admin-user');
 
-	$page->setTpl("users", array("users" => $users));//Renderiza a tela
+	if(isset($data["data"]) && !empty($data["data"]))
+	{
+		$page = new PageAdmin($data);
+		
+		$page->setTpl("users", array("users" => $users));//Renderiza a tela
+	}
 });
 
 $app->get('/admin/users/create', function(){//Abre a tala para criar um usuário
 
 	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
 
-	$page = new PageAdmin();
+	$data["data"] = loadLanguage('admin-user');
 
-	$page->setTpl("users-create");//Renderiza a tela
+	if(isset($data["data"]) && !empty($data["data"]))
+	{
+		$page = new PageAdmin($data);
+		
+		$page->setTpl("users-create");//Renderiza a tela
+	}
 });
 
 $app->post('/admin/users/create', function(){//Cria um usuário
@@ -61,9 +71,15 @@ $app->get('/admin/users/:iduser', function($iduser){//Abre a tela para atualizar
 
 	$user->get((int) $iduser);//Verifica se é um usuário válido
 
-	$page = new PageAdmin();
+	$data["data"] = loadLanguage('admin-user');
 
-	$page->setTpl("users-update", array("user" => $user->getValues()));//Renderiza a tela
+	if(isset($data["data"]) && !empty($data["data"]))
+	{
+		$page = new PageAdmin($data);
+		
+		$page->setTpl("users-update", array("user" => $user->getValues()));//Renderiza a tela
+	}
+
 });
 
 $app->post('/admin/users/:iduser', function($iduser){//Atualiza as informações do usuário
