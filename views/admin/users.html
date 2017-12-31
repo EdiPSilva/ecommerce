@@ -21,37 +21,39 @@
                         </div>
                     </div>
                     <div class="box-body no-padding">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="col-sm-1">#</th>
-                                    <th class="col-sm-3">{$user_column_name}</th>
-                                    <th class="col-sm-3">{$user_column_email}</th>
-                                    <th class="col-sm-2">{$user_column_login}</th>
-                                    <th class="col-sm-1">{$user_column_admin}</th>
-                                    <th class="col-sm-2">{$user_column_actions}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {loop="$users"}
+                        <div class="col-md-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td class="col-sm-1">{$value.iduser}</td>
-                                        <td class="col-sm-3">{$value.desperson}</td>
-                                        <td class="col-sm-3">{$value.desemail}</td>
-                                        <td class="col-sm-2">{$value.deslogin}</td/>
-                                        <td class="col-sm-1">{if="$value.inadmin == 1"}Sim{else}Não{/if}</td>
-                                        <td class="col-sm-2">
-                                            <div class="col-sm-6">
-                                                <a href="/admin/users/{$value.iduser}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>&nbsp;{$default_update_button}</a>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <a href="/admin/users/{$value.iduser}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>&nbsp;{$default_delete_button}</a>
-                                            </div>
-                                        </td>
+                                        <th class="col-sm-1">#</th>
+                                        <th class="col-sm-3">{$user_column_name}</th>
+                                        <th class="col-sm-3">{$user_column_email}</th>
+                                        <th class="col-sm-2">{$user_column_login}</th>
+                                        <th class="col-sm-1">{$user_column_admin}</th>
+                                        <th class="col-sm-2">{$user_column_actions}</th>
                                     </tr>
-                                {/loop}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {loop="$users"}
+                                        <tr>
+                                            <td class="col-sm-1">{$value.iduser}</td>
+                                            <td class="col-sm-3">{$value.desperson}</td>
+                                            <td class="col-sm-3">{$value.desemail}</td>
+                                            <td class="col-sm-2">{$value.deslogin}</td/>
+                                            <td class="col-sm-1">{if="$value.inadmin == 1"}Sim{else}Não{/if}</td>
+                                            <td class="col-sm-2">
+                                                <div class="col-sm-6">
+                                                    <a href="/admin/users/{$value.iduser}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>&nbsp;{$default_update_button}</a>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <a href="/admin/users/{$value.iduser}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>&nbsp;{$default_delete_button}</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {/loop}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

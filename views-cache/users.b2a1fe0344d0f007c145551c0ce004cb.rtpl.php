@@ -21,37 +21,39 @@
                         </div>
                     </div>
                     <div class="box-body no-padding">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="col-sm-1">#</th>
-                                    <th class="col-sm-3"><?php echo htmlspecialchars( $user_column_name, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
-                                    <th class="col-sm-3"><?php echo htmlspecialchars( $user_column_email, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
-                                    <th class="col-sm-2"><?php echo htmlspecialchars( $user_column_login, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
-                                    <th class="col-sm-1"><?php echo htmlspecialchars( $user_column_admin, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
-                                    <th class="col-sm-2"><?php echo htmlspecialchars( $user_column_actions, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $counter1=-1;  if( isset($users) && ( is_array($users) || $users instanceof Traversable ) && sizeof($users) ) foreach( $users as $key1 => $value1 ){ $counter1++; ?>
+                        <div class="col-md-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td class="col-sm-1"><?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                                        <td class="col-sm-3"><?php echo htmlspecialchars( $value1["desperson"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                                        <td class="col-sm-3"><?php echo htmlspecialchars( $value1["desemail"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                                        <td class="col-sm-2"><?php echo htmlspecialchars( $value1["deslogin"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td/>
-                                        <td class="col-sm-1"><?php if( $value1["inadmin"] == 1 ){ ?>Sim<?php }else{ ?>Não<?php } ?></td>
-                                        <td class="col-sm-2">
-                                            <div class="col-sm-6">
-                                                <a href="/admin/users/<?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>&nbsp;<?php echo htmlspecialchars( $default_update_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <a href="/admin/users/<?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>&nbsp;<?php echo htmlspecialchars( $default_delete_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
-                                            </div>
-                                        </td>
+                                        <th class="col-sm-1">#</th>
+                                        <th class="col-sm-3"><?php echo htmlspecialchars( $user_column_name, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                                        <th class="col-sm-3"><?php echo htmlspecialchars( $user_column_email, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                                        <th class="col-sm-2"><?php echo htmlspecialchars( $user_column_login, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                                        <th class="col-sm-1"><?php echo htmlspecialchars( $user_column_admin, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
+                                        <th class="col-sm-2"><?php echo htmlspecialchars( $user_column_actions, ENT_COMPAT, 'UTF-8', FALSE ); ?></th>
                                     </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php $counter1=-1;  if( isset($users) && ( is_array($users) || $users instanceof Traversable ) && sizeof($users) ) foreach( $users as $key1 => $value1 ){ $counter1++; ?>
+                                        <tr>
+                                            <td class="col-sm-1"><?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                            <td class="col-sm-3"><?php echo htmlspecialchars( $value1["desperson"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                            <td class="col-sm-3"><?php echo htmlspecialchars( $value1["desemail"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                            <td class="col-sm-2"><?php echo htmlspecialchars( $value1["deslogin"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td/>
+                                            <td class="col-sm-1"><?php if( $value1["inadmin"] == 1 ){ ?>Sim<?php }else{ ?>Não<?php } ?></td>
+                                            <td class="col-sm-2">
+                                                <div class="col-sm-6">
+                                                    <a href="/admin/users/<?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>&nbsp;<?php echo htmlspecialchars( $default_update_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <a href="/admin/users/<?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>&nbsp;<?php echo htmlspecialchars( $default_delete_button, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
