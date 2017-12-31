@@ -1,57 +1,59 @@
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-<!-- Content Header (Page header) -->
-<section class="content-header">
-  <h1>
-    Lista de Categorias
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="{$home_menu_link}"><i class="fa fa-dashboard"></i>{$home_menu_text}</a></li>
-    <li class="active"><a href="/admin/categories">{$category_menu_text}</a></li>
-  </ol>
-</section>
-
-<!-- Main content -->
-<section class="content">
-
-  <div class="row">
-  	<div class="col-md-12">
-  		<div class="box box-primary">
-            
-            <div class="box-header">
-              <a href="/admin/categories/create" class="btn btn-success">{$category_button_create}</a>
+    <section class="content-header">
+        <div class="col-md-4"><h1>{$category_title}</h1></div>
+        <div class="col-md-8">
+            <ol class="breadcrumb">
+                <li><a href="{$home_menu_link}"><i class="fa fa-dashboard"></i>&nbsp;{$home_menu_text}</a></li>
+                <li><a href="{$category_menu_link}"><i class="fa fa-tags"></i>&nbsp;{$category_menu_text}</a></li>
+            </ol>
+        </div>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <div class="col-sm-9">
+                            <h3>{$category_title_list}</h3>
+                        </div>
+                        <div class="col-sm-3">
+                            <a href="/admin/categories/create" class="btn btn-success pull-right"><i class="fa fa-plus"></i>&nbsp;{$category_button_create}</a>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        <div class="col-md-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-sm-1">#</th>
+                                        <th class="col-sm-8">{$category_column_name}</th>
+                                        <th class="col-sm-3">{$category_column_actions}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {loop="$categories"}
+                                        <tr>
+                                            <td class="col-sm-1">{$value.idcategory}</td>
+                                            <td class="col-sm-8">{$value.descategory}</td>
+                                            <td class="col-sm-3">
+                                                <div class="col-sm-4">
+                                                    <a href="/admin/categories/{$value.idcategory}/products" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Produtos</a>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <a href="/admin/categories/{$value.idcategory}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> {$default_update_button}</a>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <a href="/admin/categories/{$value.idcategory}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> {$default_delete_button}</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {/loop}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="box-body no-padding">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th style="width: 10px">#</th>
-                    <th>{$category_column_name}</th>
-                    <th style="width: 240px">{$category_column_actions}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {loop="$categories"}
-                  <tr>
-                    <td>{$value.idcategory}</td>
-                    <td>{$value.descategory}</td>
-                    <td>
-                      <a href="/admin/categories/{$value.idcategory}/products" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Produtos</a>
-                      <a href="/admin/categories/{$value.idcategory}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> {$default_update_button}</a>
-                      <a href="/admin/categories/{$value.idcategory}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> {$default_delete_button}</a>
-                    </td>
-                  </tr>
-                  {/loop}
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-  	</div>
-  </div>
-
-</section>
-<!-- /.content -->
+        </div>
+    </section>
 </div>
-<!-- /.content-wrapper -->

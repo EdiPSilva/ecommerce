@@ -1,6 +1,10 @@
 <?php 
 
 /*Text*/
+$category_language["category_title"] = "Categorias";
+$category_language["category_title_list"] = "Lista de Categorias";
+$category_language["category_title_register"] = "Cadastrar Categorias";
+$category_language["category_title_edit"] = "Editar Categorias";
 $category_language["category_all_products"] = "Todos os Produtos";
 $category_language["category_products_in_category"] = "Produtos na Categoria: ";
 /*Text*/
