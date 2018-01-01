@@ -124,5 +124,23 @@
 
 			$this->checkPhoto();
 		}
+
+		public function getFromUrl($desurl)
+		{
+			$sql = new Sql();
+
+			$rows = $sql->select("SELECT * FROM tb_products WHERE desurl = :desurl LIMIT 1",
+				array(':desurl' => $desurl)
+			);//Retorna um produto pertinente a url enviada por parâmetro
+
+			$this->setData($rows[0]);
+		}
+
+		public function getCategories()//Retorna as categoria que o produto esta associado
+		{
+			$sql = new Sql();
+
+			return $sql->select("SELECT * FROM tb_categories a INNER JOIN tb_productscategories b ON (a.idcategory = b.idcategory) WHERE b.idproduct = :idproduct", array(':idproduct' => $this->getidproduct()));
+		}
 	}
 ?>

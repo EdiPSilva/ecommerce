@@ -43,4 +43,21 @@ $app->get("/categories/:idcategory", function($idcategory){//Abre a categoria do
 	));//Renderiza a tela
 });
 
+$app->get("/products/:desurl", function($desurl){
+
+	$product = new Product();
+
+	$product->getFromUrl($desurl);
+
+	$page = new Page(array("sidebar" => false));
+
+	$page->setTpl("product-detail", 
+		array(
+			'product' => $product->getValues(),
+			'categories' => $product->getCategories()
+		)
+	);
+
+});
+
 ?>
