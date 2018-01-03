@@ -60,14 +60,65 @@ $app->get("/products/:desurl", function($desurl){
 	);
 });
 
-$app->get("/cart", function(){
+$app->get("/cart", function(){//Abre a tela do carrinho
 
-	$cart = Cart::getFromSession();
+	$cart = Cart::getFromSession();//Cria uma seção e um carrinho
 
 	$page = new Page(array("sidebar" => false));//Não exibe o menu do painel administrativo
 
-	$page->setTpl("cart");
+	$data = array(
+		'cart' => $cart->getValues(),
+		'products' => $cart->getProducts()
+	);
+	
+	$page->setTpl("cart", $data);
+});
 
+$app->get("/cart/:idproduct/add", function($idproduct){//Adiciona um produto no carrinho
+
+	$product = new Product();//Cria um objeto do produto para associar o mesmo ao carrinho
+
+	$product->get((int) $idproduct);//Carrega as informações do produto
+
+	$cart = Cart::getFromSession();//Cria uma seção e um carrinho
+
+	$qtd = isset($_GET['qtd']) ? (int) $_GET['qtd'] : 1;//Quantidade vinda da tela de detalhe do produto
+
+	for($i = 0; $i < $qtd; $i++)
+	{
+		$cart->addProduct($product);//Adiciona o produto ao carrinho
+	}
+
+	header("Location: /cart");
+	exit;
+});
+
+$app->get("/cart/:idproduct/minus", function($idproduct){//Remove uma unidade do produto no carrinho
+
+	$product = new Product();//Cria um objeto do produto para associar o mesmo ao carrinho
+
+	$product->get((int) $idproduct);//Carrega as informações do produto
+
+	$cart = Cart::getFromSession();//Cria uma seção e um carrinho
+
+	$cart->removeProduct($product);//Remove uma unidade do produto no carrinho
+
+	header("Location: /cart");
+	exit;
+});
+
+$app->get("/cart/:idproduct/remove", function($idproduct){//Remove todas as ocorrências do mesmo produto no carrinho
+
+	$product = new Product();//Cria um objeto do produto para associar o mesmo ao carrinho
+
+	$product->get((int) $idproduct);//Carrega as informações do produto
+
+	$cart = Cart::getFromSession();//Cria uma seção e um carrinho
+
+	$cart->removeProduct($product, true);//Remove todas as ocorrências do mesmo produto no carrinho
+
+	header("Location: /cart");
+	exit;
 });
 
 ?>

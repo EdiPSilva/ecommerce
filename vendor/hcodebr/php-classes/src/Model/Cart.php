@@ -90,5 +90,49 @@
 
 			$this->setData($results[0]);
 		}
+
+		public function addProduct(Product $product)
+		{
+			$sql = new Sql();
+
+			$query = "INSERT INTO tb_cartsproducts (idcart, idproduct) VALUES (:idcart, :idproduct)";
+
+			$sql->query($query, array(
+				':idcart' => $this->getidcart(),
+				':idproduct' => $product->getidproduct()
+			));
+		}
+
+		public function removeProduct(Product $product, $all = false)
+		{
+			$sql = new Sql();
+
+			$query = "UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL";
+
+			if($all === false)
+			{
+				$query .= " LIMIT 1;";
+			}
+
+			$data = array(
+				':idcart' => $this->getidcart(),
+				'idproduct' => $product->getidproduct()
+			);
+
+			$sql->query($query, $data);
+		}
+
+		public function getProducts()
+		{
+			$sql = new Sql();
+
+			$query = "SELECT b.idproduct, b.desproduct, b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl, COUNT(*) as nrqtd, SUM(b.vlprice) as vltotal FROM tb_cartsproducts a INNER JOIN tb_products b ON (a.idproduct = b.idproduct) WHERE a.idcart = :idcart AND a.dtremoved IS NULL GROUP BY b.idproduct, b.desproduct, b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl ORDER BY b.desproduct;";
+
+			$data =  array(':idcart' => $this->getidcart());
+
+			$rows = $sql->select($query, $data);
+
+			return $rows ? Product::checkList($rows) : false;
+		}
 	}
 ?>
