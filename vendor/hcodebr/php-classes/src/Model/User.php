@@ -12,6 +12,48 @@
 		const SESSION = "User";
 		const SECRET = "HcodePhp7_Secret"; // <- 16 caracteres
 
+		public static function getFromSession()
+		{
+			$user = new User();
+
+			if(isset($_SESSION[User::SESSION]) && (int) $_SESSION[User::SESSION]['iduser'] > 0)
+			{
+				$user->setData($_SESSION[User::SESSION]);
+			}
+
+			return $user;
+		}
+
+		public static function checkLogin($inadmin = true)
+		{
+			/*
+				Verifica se a seção não está definida
+				Verifica se a seção está vazia
+				Verifica se está definido porém o id não é maior que 0
+			*/
+
+			if(!isset($_SESSION[User::SESSION]) || !$_SESSION[User::SESSION] || !(int) $_SESSION[User::SESSION]["iduser"] > 0)
+			{
+				return false;//Não está logado
+			}
+			else
+			{
+				//Esse if só será acionado quando for acessar o painel administrativo
+				if($inadmin === true && (bool) $_SESSION[User::SESSION]["inadmin"] === true)
+				{
+					return true;
+				}
+				else if($inadmin === false) //É um clinente da loja
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+
 		public static function login($login, $password)//Executa o login no site
 		{
 			$sql = new Sql();
@@ -44,15 +86,7 @@
 
 		public static function verifyLogin($inadmin = true)//Verifica se o usuário é um administrador
 		{
-			if(
-				!isset($_SESSION[User::SESSION])//Verifica se a seção não existe
-				||
-				!$_SESSION[User::SESSION]//Verifica se a seção e falça
-				||
-				!(int) $_SESSION[User::SESSION]["iduser"] > 0
-				||
-				(bool) $_SESSION[User::SESSION]["inadmin"] !== $inadmin//Verifica se o usuário é administrador
-			)
+			if(!User::checkLogin($inadmin))
 			{
 				header("Location: /admin/login");
 				exit;

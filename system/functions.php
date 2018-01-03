@@ -10,6 +10,16 @@
 		return number_format($vlprice, 2, ",", ".");
 	}
 
+	function checkLogin($inadmin = true)
+	{
+		return User::checkLogin($inadmin);
+	}
+	function getUserName()
+	{
+		$user = User::getFromSession();
+		return $user->getdesperson();
+	}
+
 	function loadLanguage($value, $dir = "admin")
 	{
 		$language_dir = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."language".DIRECTORY_SEPARATOR;

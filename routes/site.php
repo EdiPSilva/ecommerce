@@ -3,6 +3,7 @@
 use \Hcode\Page;
 use \Hcode\Model\Product;
 use \Hcode\Model\Category;
+use \Hcode\Model\Cart;
 
 $app->get('/', function() {//Abre a tela principal do site
 
@@ -49,7 +50,7 @@ $app->get("/products/:desurl", function($desurl){
 
 	$product->getFromUrl($desurl);
 
-	$page = new Page(array("sidebar" => false));
+	$page = new Page(array("sidebar" => false));//Não exibe o menu do painel administrativo
 
 	$page->setTpl("product-detail", 
 		array(
@@ -57,6 +58,15 @@ $app->get("/products/:desurl", function($desurl){
 			'categories' => $product->getCategories()
 		)
 	);
+});
+
+$app->get("/cart", function(){
+
+	$cart = Cart::getFromSession();
+
+	$page = new Page(array("sidebar" => false));//Não exibe o menu do painel administrativo
+
+	$page->setTpl("cart");
 
 });
 
