@@ -68,7 +68,8 @@ $app->get("/cart", function(){//Abre a tela do carrinho
 
 	$data = array(
 		'cart' => $cart->getValues(),
-		'products' => $cart->getProducts()
+		'products' => $cart->getProducts(),
+		'error' => Cart::getMsgError()
 	);
 	
 	$page->setTpl("cart", $data);
@@ -116,6 +117,16 @@ $app->get("/cart/:idproduct/remove", function($idproduct){//Remove todas as ocor
 	$cart = Cart::getFromSession();//Cria uma seção e um carrinho
 
 	$cart->removeProduct($product, true);//Remove todas as ocorrências do mesmo produto no carrinho
+
+	header("Location: /cart");
+	exit;
+});
+
+$app->post("/cart/freight", function(){
+
+	$cart = Cart::getFromSession();
+
+	$cart->setFreight($_POST['zipcode']);
 
 	header("Location: /cart");
 	exit;
