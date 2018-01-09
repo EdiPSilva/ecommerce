@@ -5,18 +5,20 @@
 	use \Hcode\Model\Category;
 	use \Hcode\Model\Product;
 
-	function formatPrice(float $vlprice)//Função para formatar preço
+	function formatPrice($vlprice)//Função para formatar preço
 	{
-		return number_format($vlprice, 2, ",", ".");
+		return number_format((float) $vlprice, 2, ",", ".");
 	}
 
 	function checkLogin($inadmin = true)
 	{
 		return User::checkLogin($inadmin);
 	}
+
 	function getUserName()
 	{
 		$user = User::getFromSession();
+		$user->get((int) $user->getiduser());
 		return $user->getdesperson();
 	}
 

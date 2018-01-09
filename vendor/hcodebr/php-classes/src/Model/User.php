@@ -11,6 +11,8 @@
 	{
 		const SESSION = "User";
 		const SECRET = "HcodePhp7_Secret"; // <- 16 caracteres
+		const ERROR = "UserError";
+		const ERROR_REGISTER = "UserErrorRegister";
 
 		public static function getFromSession()
 		{
@@ -31,7 +33,6 @@
 				Verifica se a seção está vazia
 				Verifica se está definido porém o id não é maior que 0
 			*/
-
 			if(!isset($_SESSION[User::SESSION]) || !$_SESSION[User::SESSION] || !(int) $_SESSION[User::SESSION]["iduser"] > 0)
 			{
 				return false;//Não está logado
@@ -73,6 +74,8 @@
 			{ 
 				$user = new User();//Cria um objeto de usuário
 
+				$data['desperson'] = utf8_encode($data['desperson']);
+
 				$user->setData($data);//Atribui as suas informações
 
 				$_SESSION[User::SESSION] = $user->getValues();//Insere as suas informações a seção
@@ -80,7 +83,7 @@
 				return $user;//Retorna o objeto do usuário instanciado 
 
 			} else {//Caso o hash não seja igual
-				throw new \Exception("Usuário inexistente ou senha inválida " . $data['despassword']);
+				throw new \Exception("Usuário inexistente ou senha inválida");
 			}
 		}
 
@@ -88,7 +91,14 @@
 		{
 			if(!User::checkLogin($inadmin))
 			{
-				header("Location: /admin/login");
+				if($inadmin)
+				{
+					header("Location: /admin/login");
+				}
+				else
+				{
+					header("Location: /login");
+				}
 				exit;
 			}
 			//Caso nenhuma das circunstâncias acima seja verdadeira o usuário permance na seção
@@ -111,9 +121,9 @@
 			$sql = new Sql();
 
 			$results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
-				":desperson" => $this->getdesperson(),
+				":desperson" => utf8_decode($this->getdesperson()),
 				":deslogin" => $this->getdeslogin(),
-				":despassword" => password_hash($this->getdespassword(), PASSWORD_DEFAULT, ["cost" => 12]),
+				":despassword" => User::getPasswordHash($this->getdespassword()),
 				":desemail" => $this->getdesemail(),
 				":nrphone" => $this->getnrphone(),
 				":inadmin" => $this->getinadmin()
@@ -127,26 +137,32 @@
 		{
 			$sql = new Sql();
 
-			$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING (idperson) WHERE a.iduser = :iduser", array(
-				":iduser" => $iduser
-			));
+			$data = array(":iduser" => $iduser);
 
-			$this->setData($results[0]);
+			$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING (idperson) WHERE a.iduser = :iduser", $data);
+
+			$result = $results[0];
+
+			$result['desperson'] = utf8_encode($data['desperson']);
+
+			$this->setData($result);
 		}
 
 		public function update()//Atualiza as informações do usuário
 		{
 			$sql = new Sql();
 
-			$results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
+			$data = array(
 				":iduser" => $this->getiduser(),
-				":desperson" => $this->getdesperson(),
+				":desperson" => utf8_decode($this->getdesperson()),
 				":deslogin" => $this->getdeslogin(),
-				":despassword" => $this->getdespassword(),
+				":despassword" => User::getPasswordHash($this->getdespassword()),
 				":desemail" => $this->getdesemail(),
 				":nrphone" => $this->getnrphone(),
 				":inadmin" => $this->getinadmin()
-			));
+			);
+
+			$results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", $data);
 
 			$this->setData($results[0]);
 		}
@@ -242,6 +258,53 @@
 				":password" => $password,
 				":iduser" => $this->getiduser()
 			));
+		}
+
+		public static function setError($msg)
+		{
+			$_SESSION[User::ERROR] = $msg;
+		}
+
+		public static function getError()
+		{
+			$msg = isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR] ? $_SESSION[User::ERROR] : '';
+			User::clearError();
+			return $msg;
+		}
+
+		public static function clearError()
+		{
+			$_SESSION[User::ERROR] = NULL;
+		}
+
+		public static function setErrorRegister($msg)
+		{
+			$_SESSION[User::ERROR_REGISTER] = $msg;
+		}
+
+		public static function getErrorRegister()
+		{
+			$msg = isset($_SESSION[User::ERROR_REGISTER]) && $_SESSION[User::ERROR_REGISTER] ? $_SESSION[User::ERROR_REGISTER] : '';
+			User::clearErrorRegister();
+			return $msg;
+		}
+
+		public static function clearErrorRegister()
+		{
+			$_SESSION[User::ERROR_REGISTER] = NULL;
+		}
+
+		public static function checkLoginExist($login)
+		{
+			$sql = new Sql();
+			$data = array(':deslogin' => $login);
+			$sql->select("SELECT * FROM tb_users WHERE deslogin = :deslogin",$data);
+			return (count($results) > 0);
+		}
+
+		public static function getPasswordHash($password)
+		{
+			return password_hash($password, PASSWORD_DEFAULT, array('cost' => 12));
 		}
 	}
 ?>
