@@ -7,6 +7,8 @@
 
 	function formatPrice($vlprice)//Função para formatar preço
 	{
+		if(is_null($vlprice)) $vlprice = 0;
+
 		return number_format((float) $vlprice, 2, ",", ".");
 	}
 

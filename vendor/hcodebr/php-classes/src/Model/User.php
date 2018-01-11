@@ -176,7 +176,7 @@
 			));
 		}
 
-		public static function getForgot($email)//Inicia o processo de recuperar a senha
+		public static function getForgot($email, $inadmin = true)//Inicia o processo de recuperar a senha
 		{
 			$sql = new Sql();
 
@@ -207,7 +207,14 @@
 
 					$code = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, User::SECRET, $dataRecovery["idrecovery"], MCRYPT_MODE_ECB));//Cria um hash
 
-					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=".$code;//Cria o link para a troca de senha
+					if($inadmin)
+					{
+						$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=".$code;//Cria o link para a troca de senha
+					}
+					else
+					{
+						$link = "http://www.hcodecommerce.com.br/forgot/reset?code=".$code;//Cria o link para a troca de senha
+					}
 
 					$mailer = new Mailer($data["desemail"], $data["desperson"], "Redefinir Senha da Hcode Store", "forgot", array(
 						'name' => $data["desperson"],
