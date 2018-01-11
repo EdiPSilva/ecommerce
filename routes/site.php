@@ -152,18 +152,22 @@ $app->get("/checkout", function(){
 	$page->setTpl("checkout", $data);
 });
 
-$app->get("/login", function(){
+$app->get("/login", function(){//Abre a tela de login
 
 	$page = new Page(array("sidebar" => false));//Não exibe o menu do painel administrativo
 
+	$dataInputs = array('name' => '', 'email' => '', 'phone' => '');
+
 	$data = array(
-		'error' => User::getError()
+		'error' => User::getError(),
+		'errorRegister' => User::getErrorRegister(),
+		'registerValues' => isset($_SESSION['registerValues']) ? $_SESSION['registerValues'] : $dataInputs
 	);
 
 	$page->setTpl("login", $data);
 });
 
-$app->post("/login", function(){
+$app->post("/login", function(){//Executa o login do cliente na loja
 
 	try
 	{
@@ -178,11 +182,68 @@ $app->post("/login", function(){
 	exit;
 });
 
-$app->get("/logout", function(){
+$app->get("/logout", function(){//Encerra a seção do usuário da loja
 
 	User::logout();
 
 	header("Location: /login");
+	exit;
+});
+
+$app->post("/register", function(){//Faz o cadastro do cliente na loja
+
+	$_SESSION['registerValues'] = $_POST;
+
+	if(!isset($_POST['name']) || $_POST['name'] == '')
+	{
+		$msg = 'Preencha o campo nome.';
+		User::setErrorRegister($msg);
+		header("Location: /login");
+		exit;
+	}
+
+	if(!isset($_POST['email']) || $_POST['email'] == '')
+	{
+		$msg = 'Preencha o campo email.';
+		User::setErrorRegister($msg);
+		header("Location: /login");
+		exit;
+	}
+
+	if(User::checkLoginExist($_POST['email']) === true)
+	{
+		$msg = 'Este email já está em uso, por favor use um endereço diferente.';
+		User::setErrorRegister($msg);
+		header("Location: /login");
+		exit;
+	}
+
+	if(!isset($_POST['password']) || $_POST['password'] == '')
+	{
+		$msg = 'Preencha o campo senha.';
+		User::setErrorRegister($msg);
+		header("Location: /login");
+		exit;
+	}
+
+	$user = new User();
+
+	$setData = array(
+		'inadmin' => 0,
+		'deslogin' => $_POST['email'],
+		'desperson' => $_POST['name'],
+		'desemail' => $_POST['email'],
+		'despassword' => $_POST['password'],
+		'nrphone' => $_POST['phone']
+	);
+
+	$user->setData($setData);
+
+	$user->save();
+
+	User::login($_POST['email'], $_POST['password']);
+
+	header('Location: /checkout');
 	exit;
 });
 

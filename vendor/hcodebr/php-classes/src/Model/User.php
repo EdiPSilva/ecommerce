@@ -59,9 +59,7 @@
 		{
 			$sql = new Sql();
 
-			$results = $sql->select("SELECT * FROM tb_users WHERE deslogin = :LOGIN", array(
-				':LOGIN' => $login
-			));//Retorna se o usuário existe
+			$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b ON a.idperson = b.idperson WHERE a.deslogin = :LOGIN", array(':LOGIN' => $login));//Retorna se o usuário existe
 
 			if (count($results) === 0)
 			{
@@ -70,7 +68,7 @@
 
 			$data = $results[0];
 
-			if(password_verify($password, $data['despassword'])) //Compara os hash de senha
+			if(password_verify($password, $data['despassword']) === true) //Compara os hash de senha
 			{ 
 				$user = new User();//Cria um objeto de usuário
 
@@ -130,7 +128,6 @@
 			));
 
 			$this->setData($results[0]);
-
 		}
 
 		public function get($iduser)//Retorna um usuário
@@ -141,11 +138,14 @@
 
 			$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING (idperson) WHERE a.iduser = :iduser", $data);
 
-			$result = $results[0];
+			if(isset($results[0]))
+			{
+				$result = $results[0];
 
-			$result['desperson'] = utf8_encode($data['desperson']);
+				$result['desperson'] = utf8_encode($result['desperson']);
 
-			$this->setData($result);
+				$this->setData($result);
+			}
 		}
 
 		public function update()//Atualiza as informações do usuário
@@ -298,7 +298,7 @@
 		{
 			$sql = new Sql();
 			$data = array(':deslogin' => $login);
-			$sql->select("SELECT * FROM tb_users WHERE deslogin = :deslogin",$data);
+			$results = $sql->select("SELECT * FROM tb_users WHERE deslogin = :deslogin",$data);
 			return (count($results) > 0);
 		}
 
