@@ -34,7 +34,8 @@
         <li><a href="<?php echo htmlspecialchars( $user_menu_link, ENT_COMPAT, 'UTF-8', FALSE ); ?>"><i class="fa fa-users"></i> <span><?php echo htmlspecialchars( $user_menu_text, ENT_COMPAT, 'UTF-8', FALSE ); ?></span></a></li>
         <li><a href="<?php echo htmlspecialchars( $category_menu_link, ENT_COMPAT, 'UTF-8', FALSE ); ?>"><i class="fa fa-tags"></i> <span><?php echo htmlspecialchars( $category_menu_text, ENT_COMPAT, 'UTF-8', FALSE ); ?></span></a></li>
         <li><a href="<?php echo htmlspecialchars( $product_menu_link, ENT_COMPAT, 'UTF-8', FALSE ); ?>"><i class="fa fa-cubes"></i> <span><?php echo htmlspecialchars( $product_menu_text, ENT_COMPAT, 'UTF-8', FALSE ); ?></span></a></li>
-        <li class="treeview">
+        <li><a href="/admin/orders"><i class="fa fa-shopping-cart"></i> <span>Pedidos</span></a></li>
+        <!-- <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -44,7 +45,7 @@
             <li><a href="#">Link in level 2</a></li>
             <li><a href="#">Link in level 2</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
       <!-- /.sidebar-menu -->
     </section>

@@ -83,7 +83,6 @@
 				return $user;//Retorna o objeto do usuário instanciado 
 
 			} else {//Caso o hash não seja igual
-				var_dump('aqui2');
 				throw new \Exception("Usuário inexistente ou senha inválida");
 			}
 		}

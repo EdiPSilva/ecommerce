@@ -43,6 +43,11 @@
 		return formatPrice($totals['vlprice']);
 	}
 
+	function formateDate($date)
+	{
+		return date('d/m/Y', strtotime($date));
+	}
+
 	function loadLanguage($value, $dir = "admin")
 	{
 		$language_dir = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."language".DIRECTORY_SEPARATOR;
@@ -85,6 +90,9 @@
 						break;
 					case 'admin-products':
 						return array_merge($default, $product_language);
+						break;
+					case 'admin-orders':
+						return array_merge($default);
 						break;
 				}
 			}
