@@ -7,15 +7,51 @@ $app->get('/admin/users', function(){//Abre a tela para listar todos os usuário
 
 	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
 
-	$users = User::listAll();//Lista todos os usuários
-
 	$data["data"] = loadLanguage('admin-user');
 
 	if(isset($data["data"]) && !empty($data["data"]))
 	{
+		$search = isset($_GET['search']) ? $_GET['search'] : "";
+		$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+		if($search != '')
+		{
+			$pagination = User::getPage($page, $search);//Lista todos os usuários
+		}
+		else
+		{
+			$pagination = User::getPage($page);//Lista todos os usuários
+		}
+
+
+		$pages = array();
+
+		for ($i = 0; $i < $pagination['pages']; $i++)
+		{
+			array_push($pages, array(
+				"href" => "/admin/users?".http_build_query(array(
+					"page" => $i + 1,
+					"search" => $search
+				)),
+				"text" => $i + 1
+			));
+		}
+
+
 		$page = new PageAdmin($data);
 		
-		$page->setTpl("users", array("users" => $users));//Renderiza a tela
+		$page->setTpl("users",
+			array(
+				"users" => $pagination['data'],
+				"search" => $search,
+				"pages" => $pages
+			)
+		);//Renderiza a tela
+	}
+	else
+	{
+		header("Location: /admin/");
+		exit;
 	}
 });
 

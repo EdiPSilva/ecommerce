@@ -353,5 +353,34 @@
 				return $results;
 			}
 		}
+
+		public static function getPage($page = 1, $search = false, $itemsPerPage = 10)//Função de paginação
+		{
+			$start = ($page - 1) * $itemsPerPage;//Identifica em qual posição a query será iniciada
+
+			$sql = new Sql ();
+			$results = '';
+
+			$query = "SELECT SQL_CALC_FOUND_ROWS * FROM tb_users a INNER JOIN tb_persons b USING(idperson)";
+
+			if($search)
+			{
+				$query .= " WHERE LCASE(b.desperson) LIKE search OR LCASE(b.desemail) = :search OR LCASE(a.deslogin) LIKE search ORDER BY b.desperson LIMIT ".$start.", ".$itemsPerPage.";";
+				$results = $sql->select($query, array(":search" => '%'.strtolower($search).'%'));
+			}
+			else
+			{
+				$query .= " ORDER BY b.desperson LIMIT ".$start.", ".$itemsPerPage.";";
+				$results = $sql->select($query);
+			}
+
+			$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+
+			return array(
+				'data' => $results,
+				'total' => (int) $resultTotal[0]["nrtotal"],
+				'pages' => ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
+			);
+		}
 	}
 ?>
