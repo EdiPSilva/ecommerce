@@ -9,15 +9,56 @@ $app->get("/admin/categories", function(){//Abre a tela para listar todas as cat
 
 	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
 
-	$categories = Category::listAll();//Traz todas as categorias
-
 	$data['data'] = loadLanguage("admin-category");
 
 	if(isset($data['data']) && !empty($data['data']))
 	{
-		$page = new PageAdmin($data);
+		$search = isset($_GET['search']) ? $_GET['search'] : "";
+		$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-		$page->setTpl("categories", array('categories' => $categories) );//Renderiza a tela
+		if($search != '')
+		{
+			$pagination = Category::getPage($page, $search);//Lista todos os usuários
+		}
+		else
+		{
+			$pagination = Category::getPage($page);//Lista todos os usuários
+		}
+
+		$pages = array();
+
+		for ($i = 0; $i < $pagination['pages']; $i++)
+		{
+			if(!empty($search))
+			{
+				array_push($pages, array(
+					"href" => "/admin/categories?".http_build_query(array(
+						"page" => $i + 1,
+						"search" => $search
+					)),
+					"text" => $i + 1
+				));
+			}
+			else
+			{
+				array_push($pages, array(
+					"href" => "/admin/categories?".http_build_query(array(
+						"page" => $i + 1
+					)),
+					"text" => $i + 1
+				));
+			}
+		}
+
+		$page = new PageAdmin($data);
+		
+		$page->setTpl("categories",
+			array(
+				"categories" => $pagination['data'],
+				"search" => $search,
+				"pages" => $pages
+			)
+		);//Renderiza a tela
 	}
 
 });

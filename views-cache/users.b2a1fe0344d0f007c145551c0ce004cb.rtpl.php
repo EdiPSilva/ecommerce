@@ -65,14 +65,14 @@
                                     <?php } ?>
                                 </tbody>
                             </table>
-                            <?php if( count($pages) > 1 ){ ?>
-                            <div class="box-footer clearfix">
-                                <ul class="pagination pagination-sm no-margin pull-right">
-                                    <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
-                                        <li><a href="<?php echo htmlspecialchars( $value1["href"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
-                                    <?php } ?>
-                                </ul>
-                            </div>
+                            <?php if( isset($pages) && count($pages) > 1 ){ ?>
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination pull-right">
+                                        <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+                                            <li><a id="page" href="<?php echo htmlspecialchars( $value1["href"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="active"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                        <?php } ?>
+                                    </ul>
+                                </nav>
                             <?php } ?>
                         </div>
                     </div>

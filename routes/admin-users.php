@@ -20,7 +20,7 @@ $app->get('/admin/users', function(){//Abre a tela para listar todos os usuário
 		}
 		else
 		{
-			$pagination = User::getPage($page);//Lista todos os usuários
+			$pagination = User::getPage($page, false, 1);//Lista todos os usuários
 		}
 
 

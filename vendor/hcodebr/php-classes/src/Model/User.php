@@ -365,7 +365,7 @@
 
 			if($search)
 			{
-				$query .= " WHERE LCASE(b.desperson) LIKE search OR LCASE(b.desemail) = :search OR LCASE(a.deslogin) LIKE search ORDER BY b.desperson LIMIT ".$start.", ".$itemsPerPage.";";
+				$query .= " WHERE LCASE(b.desperson) LIKE :search OR LCASE(b.desemail) = :search OR LCASE(a.deslogin) LIKE :search ORDER BY b.desperson LIMIT ".$start.", ".$itemsPerPage.";";
 				$results = $sql->select($query, array(":search" => '%'.strtolower($search).'%'));
 			}
 			else
