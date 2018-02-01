@@ -13,11 +13,21 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <h3><?php echo htmlspecialchars( $product_title_list, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
                         </div>
-                        <div class="col-md-3">
-                            <a href="/admin/products/create" class="btn btn-success pull-right"><i class="fa fa-plus"></i>&nbsp;<?php echo htmlspecialchars( $product_button_create, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+                        <div class="col-sm-4">
+                            <form action="/admin/categories">
+                                <div class="input-group input-group-sm" style="margin-top: 28px;">
+                                    <input type="text" name="search" class="form-control" placeholder="Search" value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="/admin/products/create" class="btn btn-success btn-block pull-right"><i class="fa fa-plus"></i>&nbsp;<?php echo htmlspecialchars( $product_button_create, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
                         </div>
                     </div>
                     <div class="box-body no-padding table-responsive">
@@ -59,6 +69,19 @@
 
                                 </tbody>
                             </table>
+                            <?php if( isset($pages) && count($pages) > 1 ){ ?>
+
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination pull-right">
+                                        <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+
+                                            <li><a id="page" href="<?php echo htmlspecialchars( $value1["href"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="active"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                        <?php } ?>
+
+                                    </ul>
+                                </nav>
+                            <?php } ?>
+
                         </div>
                     </div>
                 </div>

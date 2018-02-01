@@ -8,15 +8,56 @@ $app->get("/admin/products",function(){//Abre a tela para listar todos os produt
 
 	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
 	
-	$products = Product::listAll();//Lista todos os produtos
-	
 	$data['data'] = loadLanguage('admin-products');//Carrega as languages
 
-	if(isset($data) && !empty($data))
+	if(isset($data['data']) && !empty($data['data']))
 	{
-		$page = new PageAdmin($data);
+		$search = isset($_GET['search']) ? $_GET['search'] : "";
+		$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-		$page->setTpl("products", array('products' => $products));//Renderiza a tela
+		if($search != '')
+		{
+			$pagination = Product::getPage($page, $search);//Lista todos os usuários
+		}
+		else
+		{
+			$pagination = Product::getPage($page);//Lista todos os usuários
+		}
+
+		$pages = array();
+
+		for ($i = 0; $i < $pagination['pages']; $i++)
+		{
+			if(!empty($search))
+			{
+				array_push($pages, array(
+					"href" => "/admin/products?".http_build_query(array(
+						"page" => $i + 1,
+						"search" => $search
+					)),
+					"text" => $i + 1
+				));
+			}
+			else
+			{
+				array_push($pages, array(
+					"href" => "/admin/products?".http_build_query(array(
+						"page" => $i + 1
+					)),
+					"text" => $i + 1
+				));
+			}
+		}
+
+		$page = new PageAdmin($data);
+		
+		$page->setTpl("products",
+			array(
+				"products" => $pagination['data'],
+				"search" => $search,
+				"pages" => $pages
+			)
+		);//Renderiza a tela
 	}
 });
 
