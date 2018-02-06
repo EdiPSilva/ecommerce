@@ -100,5 +100,44 @@
 		{
 			$_SESSION[Order::ERROR] = NULL;
 		}
+
+		public static function getPage($page = 1, $search = false, $itemsPerPage = 10)//Função de paginação
+		{
+			$start = ($page - 1) * $itemsPerPage;//Identifica em qual posição a query será iniciada
+
+			$sql = new Sql ();
+			$results = '';
+
+			$query = "SELECT SQL_CALC_FOUND_ROWS *
+				FROM tb_orders a
+				INNER JOIN tb_ordersstatus b USING(idstatus)
+				INNER JOIN tb_carts c USING(idcart)
+				INNER JOIN tb_users d ON d.iduser = a.iduser
+				INNER JOIN tb_addresses e USING(idaddress)
+				INNER JOIN tb_persons f ON f.idperson = d.idperson";
+
+			if($search)
+			{
+				$query .= " WHERE a.idorder = :id OR f.desperson LIKE :search ORDER BY a.dtregister DESC LIMIT ".$start.", ".$itemsPerPage.";";
+				$results = $sql->select($query, 
+					array(
+						":search" => '%'.strtolower($search).'%',
+						":id" => $search
+					));
+			}
+			else
+			{
+				$query .= " ORDER BY a.dtregister DESC LIMIT ".$start.", ".$itemsPerPage.";";
+				$results = $sql->select($query);
+			}
+
+			$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+
+			return array(
+				'data' => $results,
+				'total' => (int) $resultTotal[0]["nrtotal"],
+				'pages' => ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
+			);
+		}
 	}
 ?>
