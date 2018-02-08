@@ -3,6 +3,67 @@
 use \Hcode\PageAdmin;
 use \Hcode\Model\User;
 
+$app->get('/admin/users/:iduser/password', function($iduser){
+
+	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
+
+	$data["data"] = loadLanguage('admin-user');
+
+	if(isset($data["data"]) && !empty($data["data"]))
+	{
+		$user = new User();
+
+		$user->get((int) $iduser);
+
+		$page = new PageAdmin($data);
+		
+		$page->setTpl("users-password",
+			array(
+				"user" => $user->getValues(),
+				"msgError" => User::getError(),
+				"msgSuccess" => User::getSuccess()
+			)
+		);//Renderiza a tela
+	}
+
+});
+
+$app->post('/admin/users/:iduser/password', function($iduser){
+
+	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
+
+	if(!isset($_POST['despassword']) || empty($_POST['despassword']))
+	{
+		User::setError("Preencha a nova senha.");
+		header("Location: /admin/users/".$iduser."/password");
+		exit;
+	}
+
+	if(!isset($_POST['despassword-confirm']) || empty($_POST['despassword-confirm']))
+	{
+		User::setError("Preencha a confirmação da nova senha.");
+		header("Location: /admin/users/".$iduser."/password");
+		exit;
+	}
+
+	if($_POST['despassword'] !== $_POST['despassword-confirm'])
+	{
+		User::setError("Confirme corretamente as senhas.");
+		header("Location: /admin/users/".$iduser."/password");
+		exit;
+	}
+
+	$user = new User();
+
+	$user->get((int) $iduser);
+
+	$user->setPassword(User::getPasswordHash($_POST['despassword']));
+
+	User::setSuccess("A senha foi alterada com sucesso.");
+	header("Location: /admin/users/".$iduser."/password");
+	exit;
+});
+
 $app->get('/admin/users', function(){//Abre a tela para listar todos os usuários
 
 	User::verifyLogin();//Verifica se o usuário é administrador e pode estar logado
@@ -20,7 +81,7 @@ $app->get('/admin/users', function(){//Abre a tela para listar todos os usuário
 		}
 		else
 		{
-			$pagination = User::getPage($page, false, 1);//Lista todos os usuários
+			$pagination = User::getPage($page, false);//Lista todos os usuários
 		}
 
 

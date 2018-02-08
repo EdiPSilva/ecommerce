@@ -42,5 +42,6 @@ $user_language["user_input_pass"] = "Digite a senha";
 
 /*Button*/
 $user_language["user_menu_button_create"] = "Cadastrar Usuário";
+$user_language["user_button_pass"] = "Senha";
 /*Button*/
 ?>
